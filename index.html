@@ -2,10 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>教育小程序</title>
+
+  <style>
+    *{
+      margin: 0px;
+     padding: 0px;
+   background-color: #ffffff;
+    }
+    .navigation-bar{
+      width:375px;
+      height: 83px; /* 增加高度以适应垂直排列 */
+      margin-top: auto; /* 将footer推到底部 */
+      position: fixed; /* 固定定位 */
+      bottom: 0;
+    }
+    .navigation {
+      display: flex; /* 使用flexbox布局，让bar元素横向排列 */
+      justify-content: space-around; /* 均匀分布元素 */
+      align-items: center; /* 垂直居中 */
+      height: 49px; /* 增加高度以适应垂直排列 */
+      list-style-type: none;
+    }
+    .bar {
+      display: flex; /* 使用flexbox布局 */
+      flex-direction: column; /* 图标和文字纵向排列 */
+      align-items: center; /* 水平居中 */
+      justify-content: center;
+      width: 75px;
+      height: 49px; /* 垂直居中 */
+  
+    }
+    .bar img {
+      width: 24px;
+      height: 24px;
+      opacity: 1;
+      margin-bottom: 5px; /* 在图片下方添加间距 */
+    }
+    .img1{
+       justify-content: center;
+        display: flex;
+        padding: 20px 0 0 0;
+    }
+    .bar li {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: -0.24px;
+      line-height: 14px;
+      text-align: center;
+      list-style-type: none; /* 移除列表项标记 */
+    }
+     .bar1{
+     color: rgba(250, 98, 22, 1);
+    }
+  </style>
 </head>
 <body>
-$END$
-<div>测试</div>
+<div class="navigation-bar">
+  <div class="navigation">
+    <div class="bar bar1"><img src="img\首页-img\首页-fill.png" alt="导航栏-首页">
+    <li>首页</li></div>
+     <div  class="bar"><img src="img\首页-img\导航栏-课程.png" alt="导航栏-首页">
+    <li>课程</li></div>
+     <div  class="bar"><img src="img\首页-img\导航栏-消息.png" alt="导航栏-首页">
+    <li>消息</li></div>
+     <div  class="bar"><img src="img\首页-img\导航栏-我的.png" alt="导航栏-首页">
+    <li>我的</li></div>
+  </div>
+  <div class="img1"><img src="img\首页-img\Home Indicator.png" alt="xian"></div>
+</div>
+</div>
 </body>
 </html>
