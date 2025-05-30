@@ -1,76 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>教育小程序</title>
 
   <style>
-    *{
+    * {
       margin: 0px;
-     padding: 0px;
-   background-color: #ffffff;
+      padding: 0px;
+      background-color: #ffffff;
+
     }
-    .navigation-bar{
-      width:375px;
-      height: 83px; /* 增加高度以适应垂直排列 */
-      margin-top: auto; /* 将footer推到底部 */
-      position: fixed; /* 固定定位 */
+
+    .navigation-bar-home-top {
+      width: 375px;
+      height: 88px;
+      position: relative;
+      margin-top: auto;
+      /* 将footer推到底部 */
+      position: fixed;
+
+    }
+
+    .top-img {
+      width: 340px;
+      height: 15px;
+      padding: 10px 0 0 18px;
+    }
+
+    .top-img-right {
+      width: 87px;
+      height: 32px;
+      padding: 18px 0 0 0;
+      position: absolute;
+      right: 0;
+    }
+
+    .navigation-bar-top-test {
+      display: block;
+      font-size: 20px;
+      padding: 18px 0 0 171px;
+    }
+
+    .navigation-bar-home-bottom {
+      width: 375px;
+      height: 83px;
+      /* 增加高度以适应垂直排列 */
+      margin-top: auto;
+      /* 将footer推到底部 */
+      position: fixed;
+      /* 固定定位 */
       bottom: 0;
     }
+
     .navigation {
-      display: flex; /* 使用flexbox布局，让bar元素横向排列 */
-      justify-content: space-around; /* 均匀分布元素 */
-      align-items: center; /* 垂直居中 */
-      height: 49px; /* 增加高度以适应垂直排列 */
+      display: flex;
+      /* 使用flexbox布局，让bar元素横向排列 */
+      justify-content: space-around;
+      /* 均匀分布元素 */
+      align-items: center;
+      /* 垂直居中 */
+      height: 49px;
+      /* 增加高度以适应垂直排列 */
       list-style-type: none;
     }
-    .bar {
-      display: flex; /* 使用flexbox布局 */
-      flex-direction: column; /* 图标和文字纵向排列 */
-      align-items: center; /* 水平居中 */
+
+    .bottom {
+      display: flex;
+      /* 使用flexbox布局 */
+      flex-direction: column;
+      /* 图标和文字纵向排列 */
+      align-items: center;
+      /* 水平居中 */
       justify-content: center;
       width: 75px;
-      height: 49px; /* 垂直居中 */
-  
+      height: 49px;
+      /* 垂直居中 */
+
     }
-    .bar img {
+
+    .bottom bottom-img {
       width: 24px;
       height: 24px;
       opacity: 1;
-      margin-bottom: 5px; /* 在图片下方添加间距 */
+      margin-bottom: 5px;
+      /* 在图片下方添加间距 */
     }
-    .img1{
-       justify-content: center;
-        display: flex;
-        padding: 20px 0 0 0;
+
+    .bottom-img1 {
+      justify-content: center;
+      display: flex;
+      padding: 20px 0 0 0;
     }
-    .bar li {
+
+    .bottom li {
       font-size: 10px;
       font-weight: 500;
       letter-spacing: -0.24px;
       line-height: 14px;
       text-align: center;
-      list-style-type: none; /* 移除列表项标记 */
+      list-style-type: none;
+      /* 移除列表项标记 */
     }
-     .bar1{
-     color: rgba(250, 98, 22, 1);
+
+    .bar1 {
+      color: rgba(250, 98, 22, 1);
+    }
+    .home1{
+      padding: 88px 0 0 14px;
+      height: 188px;
+      width: 367px;
     }
   </style>
 </head>
+
 <body>
-<div class="navigation-bar">
-  <div class="navigation">
-    <div class="bar bar1"><img src="img\首页-img\首页-fill.png" alt="导航栏-首页">
-    <li>首页</li></div>
-     <div  class="bar"><img src="img\首页-img\导航栏-课程.png" alt="导航栏-首页">
-    <li>课程</li></div>
-     <div  class="bar"><img src="img\首页-img\导航栏-消息.png" alt="导航栏-首页">
-    <li>消息</li></div>
-     <div  class="bar"><img src="img\首页-img\导航栏-我的.png" alt="导航栏-首页">
-    <li>我的</li></div>
+  <div class="y">
+    <div class="navigation-bar-home-top">
+      <div class="top-img">
+        <img src="img\首页-img\➤状态栏.svg" alt="">
+      </div>
+      <div class="top-img-right">
+        <img src="img\首页-img\➤右侧区域.svg" alt="">
+      </div>
+      <span class="navigation-bar-top-test">首页</span>
+    </div>
+    <div class="navigation-bar-home-bottom">
+      <div class="navigation">
+        <div class="bottom bar1"><img class="bottom-img" src="img\首页-img\首页-fill.png" alt="导航栏-首页">
+          <li>首页</li>
+        </div>
+        <div class="bottom"><img class="bottom-img" src="img\首页-img\导航栏-课程.png" alt="导航栏-首页">
+          <li>课程</li>
+        </div>
+        <div class="bottom"><img class="bottom-img" src="img\首页-img\导航栏-消息.png" alt="导航栏-首页">
+          <li>消息</li>
+        </div>
+        <div class="bottom"><img class="bottom-img" src="img\首页-img\导航栏-我的.png" alt="导航栏-首页">
+          <li>我的</li>
+        </div>
+      </div>
+      <div class="bottom-img1"><img class="bottom-img" src="img\首页-img\Home Indicator.png" alt="xian"></div>
+    </div>
+<div class="home1">
+  <img src="img\首页-img\首页-美术馆.png" alt="">
+  <img src="img\首页-img\首页-视频读物.png" alt="">
+  <img src="img\首页-img\首页-3D音乐.png" alt="">
+  <img src="img\首页-img\首页-探索世界.png" alt="">
+</div>
   </div>
-  <div class="img1"><img src="img\首页-img\Home Indicator.png" alt="xian"></div>
-</div>
-</div>
 </body>
+
 </html>
