@@ -1,155 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- 声明文档类型为HTML5 -->
+<html lang="en"> <!-- HTML文档开始，设置语言为英语 -->
 
 <head>
-  <meta charset="UTF-8">
-  <title>教育小程序</title>
+  <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8 -->
+  <title>教育小程序</title> <!-- 页面标题 -->
 
-  <style>
-    * {
-      margin: 0px;
-      padding: 0px;
-      background-color: #ffffff;
-
+  <style> /* 内部CSS样式开始 */
+    * { /* 通用选择器 */
+      margin: 0px; /* 清除所有元素的外边距 */
+      padding: 0px; /* 清除所有元素的内边距 */
+      background-color: #ffffff; /* 设置所有元素背景为白色 */
     }
 
-    .navigation-bar-home-top {
-      width: 375px;
-      height: 88px;
-      position: relative;
-      margin-top: auto;
-      /* 将footer推到底部 */
-      position: fixed;
-
+    .navigation-bar-home-top { /* 顶部导航栏样式 */
+      width: 375px; /* 宽度 */
+      height: 88px; /* 高度 */
+      position: relative; /* 相对定位 */
+      margin-top: auto; /* 自动上边距 */
+      position: fixed; /* 固定定位 */
     }
 
-    .top-img {
-      width: 340px;
+    .top-img { /* 顶部左侧图片容器 */
+      width: 340px; 
       height: 15px;
-      padding: 10px 0 0 18px;
+      padding: 10px 0 0 18px; /* 内边距：上10px 右0 下0 左18px */
     }
 
-    .top-img-right {
+    .top-img-right { /* 顶部右侧图片容器 */
       width: 87px;
       height: 32px;
-      padding: 18px 0 0 0;
-      position: absolute;
-      right: 0;
+      padding: 18px 0 0 0; 
+      position: absolute; /* 绝对定位 */
+      right: 0; /* 靠右对齐 */
     }
 
-    .navigation-bar-top-test {
-      display: block;
-      font-size: 20px;
-      padding: 18px 0 0 171px;
+    .navigation-bar-top-test { /* 顶部标题文本样式 */
+      display: block; /* 块级元素 */
+      font-size: 20px; /* 字体大小 */
+      padding: 18px 0 0 171px; /* 内边距 */
     }
 
-    .navigation-bar-home-bottom {
+    .navigation-bar-home-bottom { /* 底部导航栏样式 */
       width: 375px;
       height: 83px;
-      /* 增加高度以适应垂直排列 */
-      margin-top: auto;
-      /* 将footer推到底部 */
-      position: fixed;
-      /* 固定定位 */
-      bottom: 0;
+      margin-top: auto; 
+      position: fixed; /* 固定定位 */
+      bottom: 0; /* 固定在底部 */
     }
 
-    .navigation {
-      display: flex;
-      /* 使用flexbox布局，让bar元素横向排列 */
-      justify-content: space-around;
-      /* 均匀分布元素 */
-      align-items: center;
-      /* 垂直居中 */
-      height: 49px;
-      /* 增加高度以适应垂直排列 */
-      list-style-type: none;
+    .navigation { /* 导航容器 */
+      display: flex; /* 弹性布局 */
+      justify-content: space-around; /* 均匀分布元素 */
+      align-items: center; /* 垂直居中 */
+      height: 49px; 
+      list-style-type: none; /* 移除列表标记 */
     }
 
-    .bottom {
-      display: flex;
-      /* 使用flexbox布局 */
-      flex-direction: column;
-      /* 图标和文字纵向排列 */
-      align-items: center;
-      /* 水平居中 */
-      justify-content: center;
+    .bottom { /* 单个导航项 */
+      display: flex; 
+      flex-direction: column; /* 纵向排列 */
+      align-items: center; /* 水平居中 */
+      justify-content: center; /* 垂直居中 */
       width: 75px;
       height: 49px;
-      /* 垂直居中 */
-
     }
 
-    .bottom bottom-img {
+    .bottom bottom-img { /* 导航图标样式 */
       width: 24px;
       height: 24px;
-      opacity: 1;
-      margin-bottom: 5px;
-      /* 在图片下方添加间距 */
+      opacity: 1; /* 完全不透明 */
+      margin-bottom: 5px; /* 下边距 */
     }
 
-    .bottom-img1 {
-      justify-content: center;
-      display: flex;
-      padding: 20px 0 0 0;
+    .bottom-img1 { /* 底部指示器容器 */
+      justify-content: center; /* 水平居中 */
+      display: flex; 
+      padding: 20px 0 0 0; /* 内边距 */
     }
 
-    .bottom li {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: -0.24px;
-      line-height: 14px;
-      text-align: center;
-      list-style-type: none;
-      /* 移除列表项标记 */
+    .bottom li { /* 导航文字样式 */
+      font-size: 10px; 
+      font-weight: 500; /* 字体粗细 */
+      letter-spacing: -0.24px; /* 字间距 */
+      line-height: 14px; /* 行高 */
+      text-align: center; /* 文字居中 */
+      list-style-type: none; /* 移除列表标记 */
     }
 
-    .bar1 {
-      color: rgba(250, 98, 22, 1);
+    .bar1 { /* 首页导航特殊样式 */
+      color: rgba(250, 98, 22, 1); /* 橙色文字 */
     }
-    .home1{
-      padding: 88px 0 0 14px;
+    .home1{ /* 内容区域样式 */
+      padding: 88px 0 0 14px; /* 内边距（顶部留出导航空间） */
       height: 188px;
       width: 367px;
     }
-  </style>
+  </style> <!-- 内部CSS样式结束 -->
 </head>
 
 <body>
-  <div class="y">
+  <div class="y"> <!-- 页面容器 -->
+    <!-- 顶部导航栏 -->
     <div class="navigation-bar-home-top">
       <div class="top-img">
-        <img src="img\首页-img\➤状态栏.svg" alt="">
+        <img src="img\首页-img\➤状态栏.svg" alt="状态栏图标"> <!-- 状态栏图标 -->
       </div>
       <div class="top-img-right">
-        <img src="img\首页-img\➤右侧区域.svg" alt="">
+        <img src="img\首页-img\➤右侧区域.svg" alt="功能图标"> <!-- 右侧功能图标 -->
       </div>
-      <span class="navigation-bar-top-test">首页</span>
+      <span class="navigation-bar-top-test">首页</span> <!-- 页面标题 -->
     </div>
+    
+    <!-- 底部导航栏 -->
     <div class="navigation-bar-home-bottom">
       <div class="navigation">
-        <div class="bottom bar1"><img class="bottom-img" src="img\首页-img\首页-fill.png" alt="导航栏-首页">
+        <!-- 首页导航项（激活状态） -->
+        <div class="bottom bar1">
+          <img class="bottom-img" src="img\首页-img\首页-fill.png" alt="首页图标">
           <li>首页</li>
         </div>
-        <div class="bottom"><img class="bottom-img" src="img\首页-img\导航栏-课程.png" alt="导航栏-首页">
+        <!-- 课程导航项 -->
+        <div class="bottom">
+          <img class="bottom-img" src="img\首页-img\导航栏-课程.png" alt="课程图标">
           <li>课程</li>
         </div>
-        <div class="bottom"><img class="bottom-img" src="img\首页-img\导航栏-消息.png" alt="导航栏-首页">
+        <!-- 消息导航项 -->
+        <div class="bottom">
+          <img class="bottom-img" src="img\首页-img\导航栏-消息.png" alt="消息图标">
           <li>消息</li>
         </div>
-        <div class="bottom"><img class="bottom-img" src="img\首页-img\导航栏-我的.png" alt="导航栏-首页">
+        <!-- 我的导航项 -->
+        <div class="bottom">
+          <img class="bottom-img" src="img\首页-img\导航栏-我的.png" alt="我的图标">
           <li>我的</li>
         </div>
       </div>
-      <div class="bottom-img1"><img class="bottom-img" src="img\首页-img\Home Indicator.png" alt="xian"></div>
+      <!-- 底部指示器 -->
+      <div class="bottom-img1">
+        <img class="bottom-img" src="img\首页-img\Home Indicator.png" alt="底部指示条">
+      </div>
     </div>
-<div class="home1">
-  <img src="img\首页-img\首页-美术馆.png" alt="">
-  <img src="img\首页-img\首页-视频读物.png" alt="">
-  <img src="img\首页-img\首页-3D音乐.png" alt="">
-  <img src="img\首页-img\首页-探索世界.png" alt="">
-</div>
+    
+    <!-- 主内容区域 -->
+    <div class="home1">
+      <!-- 内容图片组 -->
+      <img src="img\首页-img\首页-美术馆.png" alt="美术馆入口">
+      <img src="img\首页-img\首页-视频读物.png" alt="视频读物入口">
+      <img src="img\首页-img\首页-3D音乐.png" alt="3D音乐入口">
+      <img src="img\首页-img\首页-探索世界.png" alt="探索世界入口">
+    </div>
   </div>
 </body>
 
-</html>
+</html> <!-- 文档结束 -->

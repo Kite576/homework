@@ -1,0 +1,385 @@
+
+# 在图片上叠加图片并居中显示
+
+我将创建一个HTML页面，展示如何在一个图片上叠加另一个图片，并使第二张图片居中显示在第一张图片上。
+
+## 设计思路
+1. 使用容器包裹两张图片
+2. 第一张图片作为背景图
+3. 第二张图片使用绝对定位并居中
+4. 添加交互效果展示不同实现方式
+
+## 实现代码
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片叠加居中效果</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+        
+        .example {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s ease;
+        }
+        
+        .example:hover {
+            transform: translateY(-5px);
+        }
+        
+        .example h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #ffd700;
+            text-align: center;
+        }
+        
+        .image-container {
+            position: relative;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .background-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        
+        .overlay-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 40%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+        
+        .overlay-img:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+        
+        .explanation {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+        
+        .method-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .method-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .method-btn:hover, .method-btn.active {
+            background: rgba(255, 215, 0, 0.8);
+            color: #1a1a1a;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .example {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>图片叠加居中效果</h1>
+            <p class="subtitle">使用CSS实现在一张图片上叠加另一张图片，并使叠加的图片居中显示</p>
+        </header>
+        
+        <div class="method-selector">
+            <button class="method-btn active" data-method="position">绝对定位方法</button>
+            <button class="method-btn" data-method="grid">CSS Grid方法</button>
+            <button class="method-btn" data-method="flex">Flexbox方法</button>
+        </div>
+        
+        <div class="content">
+            <!-- 方法1: 绝对定位 -->
+            <div class="example" id="position-method">
+                <h2>绝对定位方法</h2>
+                <div class="image-container">
+                    <img src="img/消息-img/系统通知-圈.png" 
+                         alt="风景背景" class="background-img">
+                    <img src="img/消息-img/系统通知-图标.png" 
+                         alt="叠加图片" class="overlay-img">
+                </div>
+                <div class="explanation">
+                    <p>这是最常用的方法：</p>
+                    <ol>
+                        <li>将容器设置为相对定位（position: relative）</li>
+                        <li>背景图片正常显示</li>
+                        <li>叠加图片设置为绝对定位（position: absolute）</li>
+                        <li>使用 top: 50% 和 left: 50% 定位到容器中心</li>
+                        <li>使用 transform: translate(-50%, -50%) 微调位置使图片真正居中</li>
+                    </ol>
+                    <div class="code-block">
+&lt;div class="image-container"&gt;
+    &lt;img src="background.jpg" class="background-img"&gt;
+    &lt;img src="overlay.png" class="overlay-img"&gt;
+&lt;/div&gt;
+
+.image-container {
+    position: relative;
+}
+
+.background-img {
+    display: block;
+    width: 100%;
+}
+
+.overlay-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 40%;
+}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 方法2: CSS Grid -->
+            <div class="example hidden" id="grid-method">
+                <h2>CSS Grid方法</h2>
+                <div class="image-container grid-method">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80" 
+                         alt="风景背景" class="background-img">
+                    <img src="https://images.unsplash.com/photo-1476820865390-c49ae078f0c3?auto=format&fit=crop&w=400&q=80" 
+                         alt="叠加图片" class="overlay-img">
+                </div>
+                <div class="explanation">
+                    <p>使用CSS Grid布局实现：</p>
+                    <ol>
+                        <li>将容器设置为网格布局（display: grid）</li>
+                        <li>使用单个单元格（grid-template-areas: "overlay"）</li>
+                        <li>两张图片都放在同一个网格区域</li>
+                        <li>背景图片铺满整个容器</li>
+                        <li>叠加图片使用 align-self 和 justify-self 居中</li>
+                    </ol>
+                    <div class="code-block">
+&lt;div class="image-container"&gt;
+    &lt;img src="background.jpg" class="background-img"&gt;
+    &lt;img src="overlay.png" class="overlay-img"&gt;
+&lt;/div&gt;
+
+.image-container {
+    display: grid;
+    grid-template-areas: "overlay";
+}
+
+.background-img, .overlay-img {
+    grid-area: overlay;
+}
+
+.background-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay-img {
+    align-self: center;
+    justify-self: center;
+    max-width: 40%;
+}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 方法3: Flexbox -->
+            <div class="example hidden" id="flex-method">
+                <h2>Flexbox方法</h2>
+                <div class="image-container flex-method">
+                    <img src="https://images.unsplash.com/photo-1511497584788-8767601119d0?auto=format&fit=crop&w=1200&q=80" 
+                         alt="风景背景" class="background-img">
+                    <img src="https://images.unsplash.com/photo-1551410224-699683e15636?auto=format&fit=crop&w=400&q=80" 
+                         alt="叠加图片" class="overlay-img">
+                </div>
+                <div class="explanation">
+                    <p>使用Flexbox布局实现：</p>
+                    <ol>
+                        <li>将容器设置为Flex布局（display: flex）</li>
+                        <li>背景图片绝对定位并铺满容器</li>
+                        <li>叠加图片作为Flex项目</li>
+                        <li>使用margin: auto使叠加图片居中</li>
+                        <li>需要设置容器高度</li>
+                    </ol>
+                    <div class="code-block">
+&lt;div class="image-container"&gt;
+    &lt;img src="background.jpg" class="background-img"&gt;
+    &lt;img src="overlay.png" class="overlay-img"&gt;
+&lt;/div&gt;
+
+.image-container {
+    display: flex;
+    position: relative;
+    height: 400px; /* 需要设置高度 */
+}
+
+.background-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay-img {
+    margin: auto;
+    max-width: 40%;
+    position: relative; /* 确保图片显示在顶层 */
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>使用CSS实现在图片上叠加图片并居中显示 | 三种方法示例</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 方法选择切换
+        const methodBtns = document.querySelectorAll('.method-btn');
+        const examples = document.querySelectorAll('.example');
+        
+        methodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 更新按钮状态
+                methodBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // 显示对应示例
+                const method = btn.dataset.method;
+                examples.forEach(example => {
+                    example.classList.add('hidden');
+                });
+                document.getElementById(`${method}-method`).classList.remove('hidden');
+            });
+        });
+        
+        // 添加背景图片悬停效果
+        const backgroundImgs = document.querySelectorAll('.background-img');
+        backgroundImgs.forEach(img => {
+            img.addEventListener('mouseenter', () => {
+                img.style.transform = 'scale(1.03)';
+            });
+            
+            img.addEventListener('mouseleave', () => {
+                img.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

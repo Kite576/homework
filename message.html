@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <!-- 设置文档字符编码为UTF-8 -->
+  <meta charset="UTF-8">
+  <!-- 设置视口，确保移动设备上正确缩放 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 页面标题 -->
+  <title>教育小程序 - 消息中心</title>
+  <!-- 内联CSS样式 -->
+  <style>
+    /* 全局重置：去除所有元素的内外边距，使用border-box盒模型 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* 页面主体样式 */
+    body {
+      background-color: #FFFFFF;
+      /* 白色背景 */
+      color: #000000;
+      /* 主文字颜色 */
+      max-width: 375px;
+      /* 移动端常见宽度 */
+     
+      position: relative;
+      min-height: 100vh;
+      /* 最小高度为视口高度 */
+      padding-bottom: 83px;
+      /* 为底部导航留出空间 */
+    }
+
+    /* 顶部导航栏样式 - 包含状态栏和标题栏 */
+    .navigation-bar-home-top {
+      width: 100%;
+      height: 88px;
+      /* 固定高度 */
+      position: fixed;
+      /* 固定在顶部 */
+      top: 0;
+      left: 0;
+      background: #FFFFFF;
+      /* 白色背景 */
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      /* 轻微阴影 */
+      z-index: 10;
+      /* 确保在内容上方 */
+      padding: 0 16px;
+      /* 左右内边距 */
+      display: flex;
+      flex-direction: column;
+      /* 垂直排列 */
+      justify-content: space-between;
+    }
+
+    /* 状态栏区域样式 */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 44px;
+      /* 状态栏高度 */
+      font-size: 14px;
+    }
+
+    /* 状态栏图标容器 */
+    .status-icons {
+      width: 340px;
+      height: 15px;
+      padding: 10px 0 0 18px;
+      /* 上内边距 */
+    }
+
+    /* 状态栏图标样式 */
+    .status-icons img {
+      width: 340px;
+      height: 15px;
+      margin: 0 auto;
+    }
+
+    /* 标题栏区域样式 */
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 44px;
+      /* 标题栏高度 */
+    }
+
+    /* 导航标题样式 */
+    .navigation-title {
+      font-size: 18px;
+      font-weight: 600;
+      /* 粗体 */
+      color: #333;
+    }
+
+    /* 右侧图标容器 */
+    .right-icons {
+      width: 340px;
+      height: 15px;
+
+    }
+
+    /* 右侧图标样式 */
+    .right-icons img {
+      width: 87px;
+      height: 32px;
+      position: absolute;
+
+      /* 绝对定位 */
+    }
+
+    /* 底部导航栏样式 */
+    .navigation-bar-home-bottom {
+      width: 100%;
+      height: 83px;
+      /* 固定高度 */
+      position: fixed;
+      /* 固定在底部 */
+      bottom: 0;
+      left: 0;
+      background: #FFFFFF;
+      /* 白色背景 */
+      box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.05);
+      /* 顶部阴影 */
+      display: flex;
+      flex-direction: column;
+      /* 垂直排列 */
+      justify-content: center;
+    }
+
+    /* 导航容器 */
+    .navigation {
+      display: flex;
+      justify-content: space-around;
+      /* 均匀分布 */
+      align-items: center;
+      height: 54px;
+      /* 导航高度 */
+      list-style-type: none;
+      /* 去除列表样式 */
+    }
+
+    /* 单个导航项 */
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      /* 垂直排列 */
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 底部图标样式 */
+    .bottom-img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 4px;
+      /* 与文字间距 */
+    }
+
+    /* 导航文字样式 */
+    .nav-text {
+      font-size: 10px;
+      font-weight: 500;
+      color: #999;
+      /* 默认灰色 */
+    }
+
+    /* 激活状态的文字颜色 */
+    .nav-active {
+      color: #FA6E1E;
+      /* 主题橙色 */
+    }
+
+    /* 主页指示器样式 */
+    .home-indicator {
+      display: flex;
+      justify-content: center;
+      padding-top: 8px;
+      /* 上内边距 */
+    }
+
+    /* 内容区域样式 */
+    .content {
+      padding: 88px 16px 100px;
+      /* 内边距：顶部导航高度+底部预留空间 */
+    }
+
+    /* 通知栏样式 */
+    .notice-bar {
+      background: #FFE7CC;
+      /* 浅橙色背景 */
+      border-radius: 4px;
+      /* 圆角 */
+      padding: 8px 12px;
+      /* 内边距 */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* 元素均匀分布 */
+      margin-bottom: 16px;
+      /* 底部外边距 */
+    }
+
+    /* 通知文字样式 */
+    .notice-text {
+      font-size: 14px;
+      color: #FA6E1E;
+      /* 主题橙色 */
+      flex: 1;
+      /* 占据剩余空间 */
+      margin-right: 8px;
+      /* 右侧间距 */
+    }
+
+    /* 通知按钮样式 */
+    .notice-btn {
+      background: #FA6E1E;
+      /* 主题橙色背景 */
+      color: #FFF;
+      /* 白色文字 */
+      font-size: 14px;
+      padding: 6px 12px;
+      /* 内边距 */
+      border: none;
+      border-radius: 4px;
+      /* 圆角 */
+      margin-right: 8px;
+      /* 右侧间距 */
+    }
+
+    /* 关闭图标样式 */
+    .notice-close {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* 消息列表容器 */
+    .message-list {
+      display: flex;
+      flex-direction: column;
+      /* 垂直排列 */
+      gap: 16px;
+      /* 项间距 */
+    }
+
+    /* 单个消息项样式 */
+    .message-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      /* 上下内边距 */
+      border-bottom: 1px solid #ECECEC;
+      /* 底部边框 */
+    }
+
+    /* 消息图标样式 */
+    .message-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      /* 圆形图标 */
+      margin-right: 12px;
+      /* 右侧间距 */
+    }
+
+    /* 消息信息区域 */
+    .message-info {
+      flex: 1;
+      /* 占据剩余宽度 */
+      display: flex;
+      flex-direction: column;
+      /* 垂直排列 */
+      justify-content: space-between;
+    }
+
+    /* 消息头部（标题+时间） */
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      /* 两端对齐 */
+      align-items: center;
+      margin-bottom: 4px;
+      /* 底部间距 */
+    }
+
+    /* 消息标题样式 */
+    .message-title {
+      font-size: 16px;
+      font-weight: 600;
+      /* 粗体 */
+      color: #333;
+    }
+
+    /* 消息时间样式 */
+    .message-time {
+      font-size: 12px;
+      color: #999;
+      /* 灰色文字 */
+    }
+
+    /* 消息内容样式 */
+    .message-content {
+      font-size: 14px;
+      color: #666;
+      /* 深灰色文字 */
+      line-height: 1.4;
+      /* 行高 */
+      overflow: hidden;
+      /* 溢出隐藏 */
+      text-overflow: ellipsis;
+      /* 文本溢出显示省略号 */
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      /* 限制1行 */
+      -webkit-box-orient: vertical;
+    }
+
+    /* 未读标记样式 */
+    .unread-dot {
+      width: 8px;
+      height: 8px;
+      background: red;
+      /* 红色圆点 */
+      border-radius: 50%;
+      /* 圆形 */
+      margin-left: 8px;
+      /* 左侧间距 */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 顶部导航栏 -->
+  <div class="navigation-bar-home-top">
+
+
+    <!-- 标题栏区域 -->
+    <div class="title-bar">
+      <!-- 页面标题 -->
+      <span class="navigation-title">消息中心</span>
+      <!-- 右侧功能图标 -->
+      <div class="right-icons">
+        <img src="img\首页-img\➤右侧区域.svg" alt="信封图标">
+      </div>
+    </div>
+  </div>
+
+  <!-- 内容区域 -->
+  <div class="content">
+    <!-- 通知栏 -->
+    <div class="notice-bar">
+      <!-- 通知文字 -->
+      <span class="notice-text">开启消息通知，重要消息不错过</span>
+      <!-- 开启按钮 -->
+      <button class="notice-btn">去开启</button>
+      <!-- 关闭图标 -->
+      <img class="notice-close" src="img/close.svg" alt="关闭">
+    </div>
+
+    <!-- 消息列表容器 -->
+    <div class="message-list">
+      <!-- 系统通知消息项 -->
+      <div class="message-item">
+        <!-- 系统通知图标 -->
+        <img class="message-icon" src="img\消息-img\系统通知-圈.png" alt="系统通知">
+        <img class="message-icon" src="img/消息-img/系统通知-图标.png">
+
+        <!-- 消息信息区域 -->
+        <div class="message-info">
+          <!-- 消息头部（标题+时间） -->
+          <div class="message-header">
+            <span class="message-title">系统通知</span>
+            <span class="message-time">今天 12:20</span>
+          </div>
+          <!-- 消息内容 -->
+          <p class="message-content">最新通知本系统即将在7月19日升级...</p>
+        </div>
+        <!-- 未读标记 -->
+        <div class="unread-dot"></div>
+      </div>
+
+      <!-- 客服消息项 -->
+      <div class="message-item">
+        <!-- 客服消息图标 -->
+        <img class="message-icon" src="img\消息-img\客服消息-圈.png" alt="客服消息">
+
+        <!-- 消息信息区域 -->
+        <div class="message-info">
+          <!-- 消息头部（标题+时间） -->
+          <div class="message-header">
+            <span class="message-title">客服消息</span>
+            <span class="message-time">7/15 18:21</span>
+          </div>
+          <!-- 消息内容 -->
+          <p class="message-content">好的，那这边有问题您再联系我</p>
+        </div>
+      </div>
+
+      <!-- 订单消息项 -->
+      <div class="message-item">
+        <!-- 订单消息图标 -->
+        <img class="message-icon" src="img\消息-img\订单消息-圈.png" alt="订单消息">
+        <!-- 消息信息区域 -->
+        <div class="message-info">
+          <!-- 消息头部（标题+时间） -->
+          <div class="message-header">
+            <span class="message-title">订单消息</span>
+            <span class="message-time">7/10 10:12</span>
+          </div>
+          <!-- 消息内容 -->
+          <p class="message-content">您兑换的商品《数学小学全年级测试...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部导航栏 -->
+  <div class="navigation-bar-home-bottom">
+    <!-- 导航项容器 -->
+    <ul class="navigation">
+      <!-- 首页导航项 -->
+      <li class="nav-item">
+        <img class="bottom-img" src="img/首页-img/导航栏-首页1.png" alt="首页">
+        <span class="nav-text ">首页</span> <!-- 激活状态 -->
+      </li>
+      <!-- 学习导航项 -->
+      <li class="nav-item">
+        <img class="bottom-img" src="img/首页-img/导航栏-课程.png" alt="学习">
+        <span class="nav-text">学习</span>
+      </li>
+      <!-- 消息导航项 -->
+      <li class="nav-item">
+        <img class="bottom-img" src="img/首页-img/导航栏-消息1.png" alt="消息">
+        <span class="nav-text nav-active">消息</span> <!-- 激活状态 -->
+      </li>
+      <!-- 我的导航项 -->
+      <li class="nav-item">
+        <img class="bottom-img" src="img/首页-img/导航栏-我的.png" alt="我的">
+        <span class="nav-text">我的</span>
+      </li>
+    </ul>
+
+
+  </div>
+</body>
+
+</html>
