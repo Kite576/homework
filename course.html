@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程</title>
+  <style>
+    /* 全局样式重置：清除默认边距、统一字体 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #fff;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* 容器：控制页面整体高度（占满屏幕） */
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+
+
+    /* 主体区域：左侧导航 + 右侧内容，占满剩余高度 */
+    main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      padding: 50px 0 0 0;
+      /* 防止内容溢出 */
+    }
+
+    /* 左侧导航栏：固定宽度，垂直排列 */
+    aside {
+      width: 92px;
+
+    }
+
+    .nav-list {
+      list-style: none;
+      border-radius: 0 30px 0 0;
+      background: rgba(247, 247, 247, 1);
+      margin: 12px 0 0 0;
+    }
+
+    .nav-item {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0px;
+      line-height: 19.6px;
+      text-align: left;
+      vertical-align: top;
+      padding: 24px 0 24px 25px;
+    }
+
+    .nav-item.active {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0px;
+      line-height: 19.6px;
+      color: rgba(251, 112, 30, 1);
+      text-align: left;
+      vertical-align: top;
+      padding: 24px 0 24px 25px;
+    }
+
+    .nav-item:hover {
+      background-color: #f5f5f5;
+      /*  hover 反馈 */
+    }
+
+    .gang {
+      width: 3px;
+      height: 16px;
+      border-radius: 10px;
+      background: rgba(251, 112, 30, 1);
+      display: inline-block;
+      position: relative;
+      bottom: -2px;
+      left: -16px;
+    }
+
+    .heng {
+      width: 16px;
+      height: 0px;
+      opacity: 1;
+      border: 1px solid rgba(229, 229, 229, 1);
+      margin: 0 0 0 38px;
+    }
+
+    /* 右侧课程列表：可滚动，卡片布局 */
+    section {
+      flex: 1;
+
+      overflow-y: auto;
+      /* 内容超出时滚动 */
+    }
+
+    .course-list {
+      list-style: none;
+    }
+
+    .course-item {
+      display: flex;
+      margin-left: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      /* 分割线 */
+    }
+
+    .course-img {
+      left: 108px;
+      top: 100px;
+      width: 68px;
+      height: 68px;
+      opacity: 1;
+
+
+    }
+
+    .course-info {
+      padding: 0 16px 0 8px;
+
+    }
+
+    .course-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .course-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      /* 标签换行 */
+    }
+
+    .tag {
+
+      font-size: 10px;
+      color: rgba(255, 122, 122, 1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 0.7px solid rgba(255, 122, 122, 1);
+    }
+
+
+    /* 顶部导航栏 */
+    .navigation-bar-course-top {
+      width: 100%;
+      height: 50px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      z-index: 999;
+    }
+
+    .top-img-right img {
+      width: 87px;
+      height: 32px;
+      margin-top: 4%;
+    }
+
+    .navigation-bar-top-test {
+      font-size: 20px;
+      color: #000;
+      padding: 0 0 0 40%;
+    }
+
+    /* 底部导航栏 */
+    .navigation-bar-course-bottom {
+      width: 100%;
+      height: 50px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 50px;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 25%;
+      height: 50px;
+    }
+
+    .bottom img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 2px;
+    }
+
+    .bottom span {
+      font-size: 10px;
+
+      color: #999;
+    }
+
+    .bar1 span {
+      color: #fa6216;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navigation-bar-course-top">
+    <span class="navigation-bar-top-test">课程列表</span>
+    <div class="top-img-right">
+      <img src="img/课程-img/➤右侧区域.svg" alt="右侧区域">
+    </div>
+  </div>
+  <main>
+    <!-- 左侧导航栏 -->
+    <aside>
+      <ul class="nav-list">
+        <div>
+
+          <li class="nav-item active">
+            <div class="gang"> </div>书法班
+          </li>
+        </div>
+        <div class="heng"></div>
+        <li class="nav-item">舞蹈班</li>
+        <div class="heng"></div>
+        <li class="nav-item">绘画班</li>
+        <div class="heng"></div>
+        <li class="nav-item">少儿模特</li>
+        <div class="heng"></div>
+        <li class="nav-item">编程班</li>
+        <div class="heng"></div>
+        <li class="nav-item">主持班</li>
+        <div class="heng"></div>
+        <li class="nav-item">架子鼓</li>
+        <div class="heng"></div>
+        <li class="nav-item">体育班</li>
+        <div class="heng"></div>
+        <li class="nav-item">音乐班</li>
+      </ul>
+    </aside>
+
+    <!-- 右侧课程列表 -->
+    <section>
+      <ul class="course-list">
+        <!-- 课程卡片示例 -->
+        <li class="course-item">
+          <img src="img\课程-img\1.png" alt="课程图" class="course-img" />
+          <div class="course-info">
+            <div class="course-title">少儿书法启蒙课 提升书法手写能力</div>
+            <div class="course-tags">
+              <span class="tag">书法培训</span>
+              <span class="tag">课下辅导</span>
+            </div>
+          </div>
+        </li>
+        <li class="course-item">
+          <img src="img\课程-img\2.png" alt="课程图" class="course-img" />
+          <div class="course-info">
+            <div class="course-title">专业书法培训 一对一火热招生</div>
+            <div class="course-tags">
+              <span class="tag">少儿书法</span>
+              <span class="tag">课下辅导</span>
+            </div>
+          </div>
+        </li>
+        <li class="course-item">
+          <img src="img\课程-img\3.png" alt="课程图" class="course-img" />
+          <div class="course-info">
+            <div class="course-title">少儿国学启蒙体验课-书法限时招生</div>
+            <div class="course-tags">
+              <span class="tag">国学</span>
+              <span class="tag">书法</span>
+              <span class="tag">一日体验课</span>
+            </div>
+          </div>
+        </li>
+        <li class="course-item">
+          <img src="img\课程-img\4.png" alt="课程图" class="course-img" />
+          <div class="course-info">
+            <div class="course-title">文物里的历史记忆，练就一手好书法</div>
+            <div class="course-tags">
+              <span class="tag">少儿书法</span>
+              <span class="tag">课下辅导</span>
+            </div>
+          </div>
+        </li>
+        <li class="course-item">
+          <img src="img\课程-img\5.png" alt="课程图" class="course-img" />
+          <div class="course-info">
+            <div class="course-title">少年与国学 千古美文 做少年君子</div>
+            <div class="course-tags">
+              <span class="tag">少儿书法</span>
+              <span class="tag">课下辅导</span>
+            </div>
+          </div>
+        </li>
+        <li class="course-item">
+          <img src="img\课程-img\6.png" alt="课程图" class="course-img" />
+          <div class="course-info">
+            <div class="course-title">少儿书法启蒙课 提升书法手写能力</div>
+            <div class="course-tags">
+              <span class="tag">书法培训</span>
+              <span class="tag">少儿书法</span>
+            </div>
+          </div>
+        </li>
+        <li class="course-item">
+          <img src="img\课程-img\7.png" alt="课程图" class="course-img" />
+          <div class="course-info">
+            <div class="course-title">少儿书法启蒙课 提升书法手写能力</div>
+            <div class="course-tags">
+              <span class="tag">书法培训</span>
+              <span class="tag">少儿书法</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <div class="navigation-bar-course-bottom">
+    <ul class="navigation">
+      <li class="bottom ">
+        <img src="img\课程-img\导航栏-首页.svg" alt="导航栏-首页">
+        <span>首页</span>
+      </li>
+      <li class="bottom bar1">
+        <img src="img\课程-img\导航栏-课程.svg" alt="导航栏-课程">
+        <span>课程</span>
+      </li>
+      <li class="bottom">
+        <img src="img/首页-img/导航栏-消息.png" alt="导航栏-消息">
+        <span>消息</span>
+      </li>
+      <li class="bottom">
+        <img src="img/首页-img/导航栏-我的.png" alt="导航栏-我的">
+        <span>我的</span>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
